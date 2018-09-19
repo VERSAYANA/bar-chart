@@ -14,3 +14,11 @@ fetch(url)
   .catch((err) => {
     console.log('Fetch error:', err);
   });
+
+const svg = d3
+  .select('body')
+  .append('svg')
+  .attr('width', 500)
+  .attr('height', 250);
+
+const paintSvg = () => {};
