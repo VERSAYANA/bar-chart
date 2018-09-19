@@ -15,7 +15,7 @@ fetch(url)
     console.log('Fetch error:', err);
   });
 
-const svgWidth = 500;
+const svgWidth = 825;
 const svgHeight = 250;
 
 const svg = d3
@@ -43,5 +43,7 @@ const paintSvg = (dataset) => {
     .attr('width', 2)
     .attr('height', (d, i) => yScale(d[1]))
     .attr('x', (d, i) => i * 3)
-    .attr('y', (d, i) => svgHeight - yScale(d[1]));
+    .attr('y', (d, i) => svgHeight - yScale(d[1]))
+    .attr('data-date', (d) => d[0])
+    .attr('data-gdp', (d) => d[1]);
 };
