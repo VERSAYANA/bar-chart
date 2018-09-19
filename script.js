@@ -24,7 +24,21 @@ const svg = d3
   .attr('width', svgWidth)
   .attr('height', svgHeight);
 
+const tooltip = d3
+  .select('section')
+  .append('div')
+  .attr('id', 'tooltip');
+
 const yScale = d3.scaleLinear();
+
+const formatTooltipText = (data) => {
+  return `
+  <div>
+    <p>${data[0]}</p>
+    <p>${data[1]}</p>
+  </div>
+  `;
+};
 
 const paintSvg = (dataset) => {
   const yMin = d3.min(dataset, (d) => d[1]);
@@ -47,6 +61,15 @@ const paintSvg = (dataset) => {
     .attr('data-date', (d) => d[0])
     .attr('data-gdp', (d) => d[1])
     .attr('class', 'bar')
+    .on('mouseover', (d, i) => {
+      tooltip
+        .style('opacity', 1)
+        .attr('data-date', d[0])
+        .html(formatTooltipText(d));
+    })
+    .on('mouseout', (d, i) => {
+      tooltip.style('opacity', 0);
+    })
     .append('title')
     .text((d) => d[0]);
 };
