@@ -27,3 +27,7 @@ html {
 .bar:hover {
   fill: #80deea;
 }
+#tooltip {
+  position: relative;
+  opacity: 0;
+}
