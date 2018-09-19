@@ -8,17 +8,27 @@ fetch(url)
       return;
     }
     response.json().then((d) => {
-      console.log(d.data);
+      paintSvg(d.data);
     });
   })
   .catch((err) => {
     console.log('Fetch error:', err);
   });
 
+const svgWidth = 500;
+const svgHeight = 250;
+
 const svg = d3
   .select('body')
   .append('svg')
-  .attr('width', 500)
-  .attr('height', 250);
+  .attr('width', svgWidth)
+  .attr('height', svgHeight);
 
-const paintSvg = () => {};
+// const paintSvg = (dataset) => {
+//   svg
+//     .selectAll('rect')
+//     .data(dataset)
+//     .append('rect')
+//     .attr('x', (d, i) => i * 3);
+//     .attr('y', (d, i) => )
+// };
