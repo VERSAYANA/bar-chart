@@ -24,11 +24,24 @@ const svg = d3
   .attr('width', svgWidth)
   .attr('height', svgHeight);
 
-// const paintSvg = (dataset) => {
-//   svg
-//     .selectAll('rect')
-//     .data(dataset)
-//     .append('rect')
-//     .attr('x', (d, i) => i * 3);
-//     .attr('y', (d, i) => )
-// };
+const yScale = d3.scaleLinear();
+
+const paintSvg = (dataset) => {
+  const yMin = d3.min(dataset, (d) => d[1]);
+  const yMax = d3.max(dataset, (d) => d[1]);
+
+  yScale.domain([yMin, yMax]);
+  yScale.range([10, svgHeight]);
+
+  console.log(dataset);
+
+  svg
+    .selectAll('rect')
+    .data(dataset)
+    .enter()
+    .append('rect')
+    .attr('width', 2)
+    .attr('height', (d, i) => yScale(d[1]))
+    .attr('x', (d, i) => i * 3)
+    .attr('y', (d, i) => svgHeight - yScale(d[1]));
+};
