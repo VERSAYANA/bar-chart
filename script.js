@@ -40,10 +40,13 @@ const paintSvg = (dataset) => {
     .data(dataset)
     .enter()
     .append('rect')
-    .attr('width', 2)
+    .attr('width', 1)
     .attr('height', (d, i) => yScale(d[1]))
     .attr('x', (d, i) => i * 3)
     .attr('y', (d, i) => svgHeight - yScale(d[1]))
     .attr('data-date', (d) => d[0])
-    .attr('data-gdp', (d) => d[1]);
+    .attr('data-gdp', (d) => d[1])
+    .attr('class', 'bar')
+    .append('title')
+    .text((d) => d[0]);
 };
