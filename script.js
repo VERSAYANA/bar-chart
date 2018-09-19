@@ -19,7 +19,7 @@ const svgWidth = 825;
 const svgHeight = 250;
 
 const svg = d3
-  .select('body')
+  .select('section')
   .append('svg')
   .attr('width', svgWidth)
   .attr('height', svgHeight);
@@ -31,7 +31,7 @@ const paintSvg = (dataset) => {
   const yMax = d3.max(dataset, (d) => d[1]);
 
   yScale.domain([yMin, yMax]);
-  yScale.range([10, svgHeight]);
+  yScale.range([(yMin / yMax) * svgHeight, svgHeight]);
 
   console.log(dataset);
 
