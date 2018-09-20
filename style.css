@@ -21,13 +21,27 @@ html {
   font-size: 24px;
   font-weight: 500;
 }
+#svg-container {
+  position: relative;
+}
 .bar {
   fill: #f5f5f5;
+  cursor: pointer;
 }
 .bar:hover {
-  fill: #80deea;
+  fill: #00e5ff;
 }
 #tooltip {
-  position: relative;
+  position: absolute;
   opacity: 0;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.87);
+  color: rgba(0, 0, 0, 0.87);
+  transform: translateX(-50%);
+  z-index: 10;
 }

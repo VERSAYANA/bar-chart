@@ -16,16 +16,16 @@ fetch(url)
   });
 
 const svgWidth = 825;
-const svgHeight = 250;
+const svgHeight = 400;
 
 const svg = d3
-  .select('section')
+  .select('#svg-container')
   .append('svg')
   .attr('width', svgWidth)
   .attr('height', svgHeight);
 
 const tooltip = d3
-  .select('section')
+  .select('#svg-container')
   .append('div')
   .attr('id', 'tooltip');
 
@@ -33,10 +33,8 @@ const yScale = d3.scaleLinear();
 
 const formatTooltipText = (data) => {
   return `
-  <div>
     <p>${data[0]}</p>
     <p>${data[1]}</p>
-  </div>
   `;
 };
 
@@ -54,7 +52,7 @@ const paintSvg = (dataset) => {
     .data(dataset)
     .enter()
     .append('rect')
-    .attr('width', 1)
+    .attr('width', 2)
     .attr('height', (d, i) => yScale(d[1]))
     .attr('x', (d, i) => i * 3)
     .attr('y', (d, i) => svgHeight - yScale(d[1]))
@@ -64,10 +62,12 @@ const paintSvg = (dataset) => {
     .on('mouseover', (d, i) => {
       tooltip
         .style('opacity', 1)
-        .attr('data-date', d[0])
+        .style('bottom', yScale(d[1]) + 8 + 'px')
+        .style('left', i * 3 + 'px')
+        .attr('data-date', d)
         .html(formatTooltipText(d));
     })
-    .on('mouseout', (d, i) => {
+    .on('mouseout', (d) => {
       tooltip.style('opacity', 0);
     })
     .append('title')
