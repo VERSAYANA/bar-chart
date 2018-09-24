@@ -29,7 +29,7 @@ html {
   cursor: pointer;
 }
 .bar:hover {
-  fill: #00e5ff;
+  fill: #00b8d4;
 }
 #tooltip {
   position: absolute;
@@ -40,8 +40,8 @@ html {
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.87);
-  color: rgba(0, 0, 0, 0.87);
+  background-color: #00b8d4;
+  color: rgba(255, 255, 255, 0.87);
   transform: translateX(-50%);
   z-index: 10;
 }
