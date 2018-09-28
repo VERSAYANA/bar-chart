@@ -15,7 +15,7 @@ fetch(url)
     console.log('Fetch error:', err);
   });
 
-const svgWidth = 825;
+const svgWidth = 825 + 50;
 const svgHeight = 400;
 
 const svg = d3
@@ -29,8 +29,6 @@ const tooltip = d3
   .append('div')
   .attr('id', 'tooltip');
 
-const yScale = d3.scaleLinear();
-
 const formatTooltipText = (data) => {
   return `
     <p>${data[0]}</p>
@@ -42,10 +40,17 @@ const paintSvg = (dataset) => {
   const yMin = d3.min(dataset, (d) => d[1]);
   const yMax = d3.max(dataset, (d) => d[1]);
 
-  yScale.domain([yMin, yMax]);
-  yScale.range([(yMin / yMax) * svgHeight, svgHeight]);
+  const yScale = d3
+    .scaleLinear()
+    .domain([yMin, yMax])
+    .range([(yMin / yMax) * svgHeight, svgHeight]);
 
-  console.log(dataset);
+  const yAxisScale = d3
+    .scaleLinear()
+    .domain([yMin, yMax])
+    .range([svgHeight, (yMin / yMax) * svgHeight]);
+
+  const yAxis = d3.axisLeft(yAxisScale);
 
   svg
     .selectAll('rect')
@@ -59,6 +64,7 @@ const paintSvg = (dataset) => {
     .attr('data-date', (d) => d[0])
     .attr('data-gdp', (d) => d[1])
     .attr('class', 'bar')
+    .attr('transform', 'translate(50, 0)')
     .on('mouseover', (d, i) => {
       tooltip
         .style('opacity', 1)
@@ -69,7 +75,11 @@ const paintSvg = (dataset) => {
     })
     .on('mouseout', (d) => {
       tooltip.style('opacity', 0);
-    })
-    .append('title')
-    .text((d) => d[0]);
+    });
+
+  svg
+    .append('g')
+    .attr('class', 'y axis')
+    .attr('transform', 'translate(50, 0)')
+    .call(yAxis);
 };
