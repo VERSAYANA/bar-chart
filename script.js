@@ -31,7 +31,7 @@ const tooltip = d3
 
 const formatTooltipText = (data) => {
   return `
-    <p data-date=${date}>${data[0]}</p>
+    <p data-date=${data[0]}>${data[0]}</p>
     <p>${data[1]}</p>
   `;
 };
@@ -77,7 +77,7 @@ const paintSvg = (dataset) => {
     .on('mouseover', (d, i) => {
       tooltip
         .style('opacity', 1)
-        .style('bottom', yScale(d[1]) + 8 + 'px')
+        .style('bottom', yScale(d[1]) + 108 + 'px')
         .style('left', i * 3 + 'px')
         .attr('data-date', d)
         .html(formatTooltipText(d));
