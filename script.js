@@ -15,14 +15,14 @@ fetch(url)
     console.log('Fetch error:', err);
   });
 
-const svgWidth = 825 + 50;
+const svgWidth = 825;
 const svgHeight = 400;
 
 const svg = d3
   .select('#svg-container')
   .append('svg')
-  .attr('width', svgWidth)
-  .attr('height', svgHeight);
+  .attr('width', svgWidth + 100)
+  .attr('height', svgHeight + 100);
 
 const tooltip = d3
   .select('#svg-container')
@@ -31,7 +31,7 @@ const tooltip = d3
 
 const formatTooltipText = (data) => {
   return `
-    <p>${data[0]}</p>
+    <p data-date=${date}>${data[0]}</p>
     <p>${data[1]}</p>
   `;
 };
@@ -39,6 +39,15 @@ const formatTooltipText = (data) => {
 const paintSvg = (dataset) => {
   const yMin = d3.min(dataset, (d) => d[1]);
   const yMax = d3.max(dataset, (d) => d[1]);
+
+  const years = dataset.map((d) => d[0].slice(0, 4));
+
+  const xScale = d3
+    .scaleLinear()
+    .domain([d3.min(years), d3.max(years)])
+    .range([0, svgWidth]);
+
+  const xAxis = d3.axisBottom(xScale);
 
   const yScale = d3
     .scaleLinear()
@@ -79,7 +88,15 @@ const paintSvg = (dataset) => {
 
   svg
     .append('g')
-    .attr('class', 'y axis')
+    .attr('class', 'axis')
+    .attr('id', 'y-axis')
     .attr('transform', 'translate(50, 0)')
     .call(yAxis);
+
+  svg
+    .append('g')
+    .attr('class', 'axis')
+    .attr('id', 'x-axis')
+    .attr('transform', `translate(50, 400)`)
+    .call(xAxis);
 };
