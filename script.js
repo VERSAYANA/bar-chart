@@ -83,7 +83,7 @@ const paintSvg = (dataset) => {
         .style('bottom', yScale(d[1]) + 108 + 'px')
         .style('left', i * 3 + 'px')
         .attr('data-date', d)
-        .html(`${d[0]}<br>${d[1]}`)
+        .html(`<p>${d[0]}</p><p>${d[1]}</p>`)
         .attr('data-date', d[0]);
     })
     .on('mouseout', (d) => {

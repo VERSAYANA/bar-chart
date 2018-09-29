@@ -39,9 +39,14 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 8px;
   border-radius: 5px;
   background-color: #00b8d4;
   color: rgba(255, 255, 255, 0.87);
   transform: translateX(-50% + 50);
   z-index: 10;
+}
+#tooltip p {
+  margin: 8px 0;
 }
